@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--要实现的全路径-->
+<mapper namespace="cn.springmvcmybatis.dao">
+    <!--type要映射的实体类-->
+    <resultMap id="productMap" type="cn.cn.springmvcmybatis.model.Product">
+        <id property="product_id" column="productId"/>
+        <result property="product_name" column="productName"/>
+        <result property="product_price" column="productPrice"/>
+        <result property="product_description" column="productDescription"/>
+    </resultMap>
+    <!--查询所有-->
+    <select id="findAll" resultMap="productMap">
+        select * from product
+    </select>
+    <!--根据ID获取-->
+    <select id="getById" parameterType="java.lang.Integer" resultMap="productMap">
+        select * from product where product_id=#{id}
+    </select>
+    <!--根据ID删除-->
+    <delete id="deleteById" parameterType="cn.cn.springmvcmybatis.model.Product">
+        delete from product where product_id=#{id}
+    </delete>
+    <!--修改-->
+    <update id="update" parameterType="cn.cn.springmvcmybatis.model.Product">
+        update product set product_name=#{name},product_price={price},
+        product_description=#{description} where product_id=#{id}
+    </update>
+    <!--添加-->
+    <insert id="insert" parameterType="cn.cn.springmvcmybatis.model.Product">
+        insert into product(product_name,product_price,product_description)
+        values(#{name},#{price},#{description})
+    </insert>
+</mapper>
